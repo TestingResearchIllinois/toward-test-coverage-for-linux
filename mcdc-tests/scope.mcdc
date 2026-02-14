@@ -1,0 +1,41 @@
+    1|       |// SPDX-License-Identifier: MIT
+    2|       |
+    3|       |#include <stdbool.h>
+    4|       |#include <stdio.h>
+    5|       |
+    6|      2|void bool_exp(bool a, bool b) {
+    7|      2|  bool c = a && b; // should MC/DC be measured for each boolean expression?
+  ------------------
+  |  Branch (7:12): [True: 1, False: 1]
+  |  Branch (7:17): [True: 1, False: 0]
+  ------------------
+  |---> MC/DC Decision Region (7:12) to (7:18)
+  |
+  |  Number of Conditions: 2
+  |     Condition C1 --> (7:12)
+  |     Condition C2 --> (7:17)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     C1, C2    Result
+  |  1 { F,  -  = F      }
+  |  2 { T,  T  = T      }
+  |
+  |  C1-Pair: covered: (1,2)
+  |  C2-Pair: not covered
+  |  MC/DC Coverage for Decision: 50.00%
+  |
+  ------------------
+    8|      2|  if (c) {
+  ------------------
+  |  Branch (8:7): [True: 1, False: 1]
+  ------------------
+    9|      1|    printf("bool_exp decision true\n");
+   10|      1|  }
+   11|      2|}
+   12|       |
+   13|      1|int main() {
+   14|      1|  bool_exp(false, true);
+   15|      1|  bool_exp(true, true);
+   16|      1|}
+

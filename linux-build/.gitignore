@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: MIT
+
+linux
+build-linux_*.log
+.suffix
+dmesg_*.log
+llvm-cov_*.log
+html_clang-scc-kunit_*/
+text_clang-scc-kunit_*/

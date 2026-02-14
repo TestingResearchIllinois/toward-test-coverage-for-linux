@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: MIT
+
+# Specific to "MC/DC" examples
+boolean-operator
+mcdc-const
+mcdc-const-folding
+mcdc-general
+not
+scope
+short-circuit-2
+short-circuit
+split-condition
+split-nested

@@ -1,0 +1,117 @@
+    1|       |// SPDX-License-Identifier: MIT
+    2|       |
+    3|       |#include <stdbool.h>
+    4|       |#include <stdio.h>
+    5|       |
+    6|      2|void bool_exp(bool y, bool z, bool u, bool v) {
+    7|      2|  if ((y && z) || (u && v)) {
+  ------------------
+  |  Branch (7:8): [True: 1, False: 1]
+  |  Branch (7:13): [True: 0, False: 1]
+  |  Branch (7:20): [True: 2, False: 0]
+  |  Branch (7:25): [True: 1, False: 1]
+  ------------------
+  |---> MC/DC Decision Region (7:7) to (7:27)
+  |
+  |  Number of Conditions: 4
+  |     Condition C1 --> (7:8)
+  |     Condition C2 --> (7:13)
+  |     Condition C3 --> (7:20)
+  |     Condition C4 --> (7:25)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     C1, C2, C3, C4    Result
+  |  1 { T,  F,  T,  F  = F      }
+  |  2 { F,  -,  T,  T  = T      }
+  |
+  |  C1-Pair: not covered
+  |  C2-Pair: not covered
+  |  C3-Pair: not covered
+  |  C4-Pair: not covered
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+    8|      1|    printf("bool_exp decision true\n");
+    9|      1|  }
+   10|      2|}
+   11|       |
+   12|      2|void bool_exp_splited(bool y, bool z, bool u, bool v) {
+   13|      2|  bool x = y && z;
+  ------------------
+  |  Branch (13:12): [True: 1, False: 1]
+  |  Branch (13:17): [True: 0, False: 1]
+  ------------------
+  |---> MC/DC Decision Region (13:12) to (13:18)
+  |
+  |  Number of Conditions: 2
+  |     Condition C1 --> (13:12)
+  |     Condition C2 --> (13:17)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     C1, C2    Result
+  |  1 { F,  -  = F      }
+  |  2 { T,  F  = F      }
+  |
+  |  C1-Pair: not covered
+  |  C2-Pair: not covered
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+   14|      2|  bool w = u && v;
+  ------------------
+  |  Branch (14:12): [True: 2, False: 0]
+  |  Branch (14:17): [True: 1, False: 1]
+  ------------------
+  |---> MC/DC Decision Region (14:12) to (14:18)
+  |
+  |  Number of Conditions: 2
+  |     Condition C1 --> (14:12)
+  |     Condition C2 --> (14:17)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     C1, C2    Result
+  |  1 { T,  F  = F      }
+  |  2 { T,  T  = T      }
+  |
+  |  C1-Pair: not covered
+  |  C2-Pair: covered: (1,2)
+  |  MC/DC Coverage for Decision: 50.00%
+  |
+  ------------------
+   15|      2|  if (x || w) {
+  ------------------
+  |  Branch (15:7): [True: 0, False: 2]
+  |  Branch (15:12): [True: 1, False: 1]
+  ------------------
+  |---> MC/DC Decision Region (15:7) to (15:13)
+  |
+  |  Number of Conditions: 2
+  |     Condition C1 --> (15:7)
+  |     Condition C2 --> (15:12)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     C1, C2    Result
+  |  1 { F,  F  = F      }
+  |  2 { F,  T  = T      }
+  |
+  |  C1-Pair: not covered
+  |  C2-Pair: covered: (1,2)
+  |  MC/DC Coverage for Decision: 50.00%
+  |
+  ------------------
+   16|      1|    printf("bool_exp_splited decision true\n");
+   17|      1|  }
+   18|      2|}
+   19|       |
+   20|      1|int main() {
+   21|      1|  bool_exp(false, true, true, true);
+   22|      1|  bool_exp(true, false, true, false);
+   23|       |
+   24|      1|  bool_exp_splited(false, true, true, true);
+   25|      1|  bool_exp_splited(true, false, true, false);
+   26|      1|}
+

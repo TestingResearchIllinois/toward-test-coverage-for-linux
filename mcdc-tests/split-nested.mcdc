@@ -1,0 +1,25 @@
+    1|       |// SPDX-License-Identifier: MIT
+    2|       |
+    3|       |#include <stdbool.h>
+    4|       |#include <stdio.h>
+    5|       |
+    6|      2|bool foo(bool x) { return !x; }
+    7|       |
+    8|      2|void split_nested(bool a, bool b, bool c, bool d) {
+    9|      2|  if (a && b && foo(c || d)) {
+  ------------------
+  |  Branch (9:7): [True: 2, False: 0]
+  |  Branch (9:12): [True: 2, False: 0]
+  |  Branch (9:17): [True: 1, False: 1]
+  |  Branch (9:21): [True: 1, False: 1]
+  |  Branch (9:26): [True: 0, False: 1]
+  ------------------
+   10|      1|    printf("split_nested decision true\n");
+   11|      1|  }
+   12|      2|}
+   13|       |
+   14|      1|int main() {
+   15|      1|  split_nested(true, true, true, false);
+   16|      1|  split_nested(true, true, false, false);
+   17|      1|}
+

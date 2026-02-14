@@ -1,0 +1,37 @@
+    1|       |// SPDX-License-Identifier: MIT
+    2|       |
+    3|       |#include <stdbool.h>
+    4|       |#include <stdio.h>
+    5|       |
+    6|      2|void short_circuit(bool a, bool b) {
+    7|      2|  if (a && b) {
+  ------------------
+  |  Branch (7:7): [True: 1, False: 1]
+  |  Branch (7:12): [True: 1, False: 0]
+  ------------------
+  |---> MC/DC Decision Region (7:7) to (7:13)
+  |
+  |  Number of Conditions: 2
+  |     Condition C1 --> (7:7)
+  |     Condition C2 --> (7:12)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     C1, C2    Result
+  |  1 { F,  -  = F      }
+  |  2 { T,  T  = T      }
+  |
+  |  C1-Pair: covered: (1,2)
+  |  C2-Pair: not covered
+  |  MC/DC Coverage for Decision: 50.00%
+  |
+  ------------------
+    8|      1|    printf("short_circuit decision true\n");
+    9|      1|  }
+   10|      2|}
+   11|       |
+   12|      1|int main() {
+   13|      1|  short_circuit(false, false);
+   14|      1|  short_circuit(true, true);
+   15|      1|}
+

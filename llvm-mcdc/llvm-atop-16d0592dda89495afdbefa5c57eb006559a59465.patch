@@ -1,0 +1,80 @@
+// SPDX-License-Identifier: MIT
+
+diff --git a/llvm/include/llvm/ProfileData/Coverage/CoverageMappingReader.h b/llvm/include/llvm/ProfileData/Coverage/CoverageMappingReader.h
+index 346ca4ad2eb3..6e91dff06ccd 100644
+--- a/llvm/include/llvm/ProfileData/Coverage/CoverageMappingReader.h
++++ b/llvm/include/llvm/ProfileData/Coverage/CoverageMappingReader.h
+@@ -45,6 +45,7 @@ class CoverageMappingIterator {
+   CoverageMappingReader *Reader;
+   CoverageMappingRecord Record;
+   coveragemap_error ReadErr;
++  std::string ReadErrMsg;
+ 
+   void increment();
+ 
+@@ -80,7 +81,7 @@ public:
+   }
+   Expected<CoverageMappingRecord &> operator*() {
+     if (ReadErr != coveragemap_error::success) {
+-      auto E = make_error<CoverageMapError>(ReadErr);
++      auto E = make_error<CoverageMapError>(ReadErr, ReadErrMsg);
+       ReadErr = coveragemap_error::success;
+       return std::move(E);
+     }
+@@ -88,7 +89,7 @@ public:
+   }
+   Expected<CoverageMappingRecord *> operator->() {
+     if (ReadErr != coveragemap_error::success) {
+-      auto E = make_error<CoverageMapError>(ReadErr);
++      auto E = make_error<CoverageMapError>(ReadErr, ReadErrMsg);
+       ReadErr = coveragemap_error::success;
+       return std::move(E);
+     }
+diff --git a/llvm/lib/ProfileData/Coverage/CoverageMappingReader.cpp b/llvm/lib/ProfileData/Coverage/CoverageMappingReader.cpp
+index d32846051083..28fe8fcd4f0d 100644
+--- a/llvm/lib/ProfileData/Coverage/CoverageMappingReader.cpp
++++ b/llvm/lib/ProfileData/Coverage/CoverageMappingReader.cpp
+@@ -57,8 +57,10 @@ void CoverageMappingIterator::increment() {
+     handleAllErrors(std::move(E), [&](const CoverageMapError &CME) {
+       if (CME.get() == coveragemap_error::eof)
+         *this = CoverageMappingIterator();
+-      else
++      else {
+         ReadErr = CME.get();
++        ReadErrMsg = CME.getMessage();
++      }
+     });
+ }
+ 
+diff --git a/llvm/test/tools/llvm-cov/warnings.h b/llvm/test/tools/llvm-cov/warnings.h
+index 8c50dc35c5b7..be1831121501 100644
+--- a/llvm/test/tools/llvm-cov/warnings.h
++++ b/llvm/test/tools/llvm-cov/warnings.h
+@@ -13,4 +13,4 @@
+ // FAKE-FUNC-STDERR: Could not read coverage for '{{.*}}'.
+ 
+ // RUN: not llvm-cov report %S/Inputs/malformedRegions.covmapping -instr-profile %S/Inputs/elf_binary_comdat.profdata 2>&1 | FileCheck %s -check-prefix=MALFORMED-REGION
+-// MALFORMED-REGION: failed to load coverage: '{{.*}}malformedRegions.covmapping': malformed coverage data
++// MALFORMED-REGION: failed to load coverage: '{{.*}}malformedRegions.covmapping': malformed coverage data: counter mapping region locations are incorrect
+diff --git a/llvm/tools/llvm-cov/SourceCoverageViewHTML.cpp b/llvm/tools/llvm-cov/SourceCoverageViewHTML.cpp
+index b93d8cb03530..29e2fff62242 100644
+--- a/llvm/tools/llvm-cov/SourceCoverageViewHTML.cpp
++++ b/llvm/tools/llvm-cov/SourceCoverageViewHTML.cpp
+@@ -452,6 +452,8 @@ void CoveragePrinterHTML::emitReportHeader(raw_ostream &OSRef,
+                           "here") +
+                         " for information about interpreting this report.");
+ 
++  OSRef << tag("p", a("#summary-table-end", "Go to the summary end\n", "summary-table-begin"));
++
+   // Emit a table containing links to reports for each file in the covmapping.
+   // Exclude files which don't contain any regions.
+   OSRef << BeginCenteredDiv << BeginTable;
+@@ -506,6 +508,8 @@ Error CoveragePrinterHTML::createIndexFile(
+   emitFileSummary(OSRef, "Totals", Totals, /*IsTotals=*/true);
+   OSRef << EndTable << EndCenteredDiv;
+ 
++  OSRef << tag("p", a("#summary-table-begin", "Go to the summary begin\n", "summary-table-end"));
++
+   // Emit links to files which don't contain any functions. These are normally
+   // not very useful, but could be relevant for code which abuses the
+   // preprocessor.

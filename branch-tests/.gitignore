@@ -1,0 +1,37 @@
+# SPDX-License-Identifier: MIT
+
+# Specific to "branch coverage" examples
+gcov-10b
+gcov-10
+gcov-11
+gcov-12
+gcov-13
+gcov-14
+gcov-15
+gcov-16
+gcov-17
+gcov-18
+gcov-1a
+gcov-1
+gcov-2
+gcov-3
+gcov-4b
+gcov-4
+gcov-5b
+gcov-6
+gcov-7
+gcov-8
+gcov-9
+gcov-mytest
+gcovpart-13b
+gcov-pr83813
+gcov-pr84758
+gcov-pr85217
+gcov-pr85332
+gcov-pr85338
+gcov-pr85350
+gcov-pr85372
+gcov-pr86536
+gcov-pr90574-1
+gcov-pr90574-2
+gcov-pr94029

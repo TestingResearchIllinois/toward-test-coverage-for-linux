@@ -1,0 +1,67 @@
+    1|       |// SPDX-License-Identifier: MIT
+    2|       |
+    3|       |#include <stdbool.h>
+    4|       |#include <stdio.h>
+    5|       |
+    6|      3|void a_and_not_a(bool a, bool b) {
+    7|      3|  bool c = a || b;
+  ------------------
+  |  Branch (7:12): [True: 2, False: 1]
+  |  Branch (7:17): [True: 0, False: 1]
+  ------------------
+  |---> MC/DC Decision Region (7:12) to (7:18)
+  |
+  |  Number of Conditions: 2
+  |     Condition C1 --> (7:12)
+  |     Condition C2 --> (7:17)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     C1, C2    Result
+  |  1 { F,  F  = F      }
+  |  2 { T,  -  = T      }
+  |
+  |  C1-Pair: covered: (1,2)
+  |  C2-Pair: not covered
+  |  MC/DC Coverage for Decision: 50.00%
+  |
+  ------------------
+    8|      3|  if ((a || b) && (c || !a)) {
+  ------------------
+  |  Branch (8:8): [True: 2, False: 1]
+  |  Branch (8:13): [True: 0, False: 1]
+  |  Branch (8:20): [True: 2, False: 0]
+  |  Branch (8:25): [True: 0, False: 0]
+  ------------------
+  |---> MC/DC Decision Region (8:7) to (8:28)
+  |
+  |  Number of Conditions: 4
+  |     Condition C1 --> (8:8)
+  |     Condition C2 --> (8:13)
+  |     Condition C3 --> (8:20)
+  |     Condition C4 --> (8:25)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     C1, C2, C3, C4    Result
+  |  1 { F,  F,  -,  -  = F      }
+  |  2 { T,  -,  T,  -  = T      }
+  |
+  |  C1-Pair: covered: (1,2)
+  |  C2-Pair: not covered
+  |  C3-Pair: not covered
+  |  C4-Pair: not covered
+  |  MC/DC Coverage for Decision: 25.00%
+  |
+  ------------------
+    9|      2|    printf("A and not A decision true\n");
+   10|      2|  }
+   11|      3|}
+   12|       |
+   13|      1|int main() {
+   14|       |  // a_and_not_a(false, true);
+   15|      1|  a_and_not_a(true, true);
+   16|      1|  a_and_not_a(true, false);
+   17|      1|  a_and_not_a(false, false);
+   18|      1|}
+

@@ -1,0 +1,444 @@
+    1|       |// SPDX-License-Identifier: MIT
+    2|       |
+    3|       |#include <stdbool.h>
+    4|       |#include <stdlib.h>
+    5|       |
+    6|      0|bool case0(bool a) { return 0 && a; /* mcdc(0) */ }
+  ------------------
+  |  Branch (6:29): [Folded, False: 0]
+  |  Branch (6:34): [True: 0, False: 0]
+  ------------------
+  |---> MC/DC Decision Region (6:29) to (6:35)
+  |
+  |  Number of Conditions: 2
+  |     Condition C1 --> (6:29)
+  |     Condition C2 --> (6:34)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     None.
+  |
+  |  C1-Pair: constant folded
+  |  C2-Pair: not covered
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+    7|       |bool case1(bool a) { return a && 0; /* mcdc(0) */ }
+    8|      0|bool case2(bool a) { return 1 && a; /* mcdc(100) */ }
+  ------------------
+  |  Branch (8:29): [True: 0, Folded]
+  |  Branch (8:34): [True: 0, False: 0]
+  ------------------
+  |---> MC/DC Decision Region (8:29) to (8:35)
+  |
+  |  Number of Conditions: 2
+  |     Condition C1 --> (8:29)
+  |     Condition C2 --> (8:34)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     None.
+  |
+  |  C1-Pair: constant folded
+  |  C2-Pair: not covered
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+    9|      0|bool case3(bool a) { return a && 1; /* mcdc(100) */ }
+  ------------------
+  |  Branch (9:29): [True: 0, False: 0]
+  |  Branch (9:34): [True: 0, Folded]
+  ------------------
+  |---> MC/DC Decision Region (9:29) to (9:35)
+  |
+  |  Number of Conditions: 2
+  |     Condition C1 --> (9:29)
+  |     Condition C2 --> (9:34)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     None.
+  |
+  |  C1-Pair: not covered
+  |  C2-Pair: constant folded
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+   10|      0|bool case4(bool a) { return 1 || a; /* mcdc(0) */ }
+  ------------------
+  |  Branch (10:29): [True: 0, Folded]
+  |  Branch (10:34): [True: 0, False: 0]
+  ------------------
+  |---> MC/DC Decision Region (10:29) to (10:35)
+  |
+  |  Number of Conditions: 2
+  |     Condition C1 --> (10:29)
+  |     Condition C2 --> (10:34)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     None.
+  |
+  |  C1-Pair: constant folded
+  |  C2-Pair: not covered
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+   11|      0|bool case5(bool a) { return a || 1; /* mcdc(0) */ }
+  ------------------
+  |  Branch (11:29): [True: 0, False: 0]
+  |  Branch (11:34): [True: 0, Folded]
+  ------------------
+  |---> MC/DC Decision Region (11:29) to (11:35)
+  |
+  |  Number of Conditions: 2
+  |     Condition C1 --> (11:29)
+  |     Condition C2 --> (11:34)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     None.
+  |
+  |  C1-Pair: not covered
+  |  C2-Pair: constant folded
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+   12|      0|bool case6(bool a) { return 0 || a; /* mcdc(100) */ }
+  ------------------
+  |  Branch (12:29): [Folded, False: 0]
+  |  Branch (12:34): [True: 0, False: 0]
+  ------------------
+  |---> MC/DC Decision Region (12:29) to (12:35)
+  |
+  |  Number of Conditions: 2
+  |     Condition C1 --> (12:29)
+  |     Condition C2 --> (12:34)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     None.
+  |
+  |  C1-Pair: constant folded
+  |  C2-Pair: not covered
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+   13|       |bool case7(bool a) { return a || 0; /* mcdc(100) */ }
+   14|       |
+   15|      0|bool case8(bool a, bool b) { return 0 && a && b; /* mcdc(0) */ }
+  ------------------
+  |  Branch (15:37): [Folded, False: 0]
+  |  Branch (15:42): [True: 0, False: 0]
+  |  Branch (15:47): [True: 0, False: 0]
+  ------------------
+  |---> MC/DC Decision Region (15:37) to (15:48)
+  |
+  |  Number of Conditions: 3
+  |     Condition C1 --> (15:37)
+  |     Condition C2 --> (15:42)
+  |     Condition C3 --> (15:47)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     None.
+  |
+  |  C1-Pair: constant folded
+  |  C2-Pair: not covered
+  |  C3-Pair: not covered
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+   16|       |bool case9(bool a, bool b) { return a && 0 && b; /* mcdc(0) */ }
+   17|      0|bool casea(bool a, bool b) { return 1 && a && b; /* mcdc(100) */ }
+  ------------------
+  |  Branch (17:37): [True: 0, Folded]
+  |  Branch (17:42): [True: 0, False: 0]
+  |  Branch (17:47): [True: 0, False: 0]
+  ------------------
+  |---> MC/DC Decision Region (17:37) to (17:48)
+  |
+  |  Number of Conditions: 3
+  |     Condition C1 --> (17:37)
+  |     Condition C2 --> (17:42)
+  |     Condition C3 --> (17:47)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     None.
+  |
+  |  C1-Pair: constant folded
+  |  C2-Pair: not covered
+  |  C3-Pair: not covered
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+   18|      0|bool caseb(bool a, bool b) { return a && 1 && b; /* mcdc(100) */ }
+  ------------------
+  |  Branch (18:37): [True: 0, False: 0]
+  |  Branch (18:42): [True: 0, Folded]
+  |  Branch (18:47): [True: 0, False: 0]
+  ------------------
+  |---> MC/DC Decision Region (18:37) to (18:48)
+  |
+  |  Number of Conditions: 3
+  |     Condition C1 --> (18:37)
+  |     Condition C2 --> (18:42)
+  |     Condition C3 --> (18:47)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     None.
+  |
+  |  C1-Pair: not covered
+  |  C2-Pair: constant folded
+  |  C3-Pair: not covered
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+   19|      0|bool casec(bool a, bool b) { return 1 || a || b; /* mcdc(0) */ }
+  ------------------
+  |  Branch (19:37): [True: 0, Folded]
+  |  Branch (19:42): [True: 0, False: 0]
+  |  Branch (19:47): [True: 0, False: 0]
+  ------------------
+  |---> MC/DC Decision Region (19:37) to (19:48)
+  |
+  |  Number of Conditions: 3
+  |     Condition C1 --> (19:37)
+  |     Condition C2 --> (19:42)
+  |     Condition C3 --> (19:47)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     None.
+  |
+  |  C1-Pair: constant folded
+  |  C2-Pair: not covered
+  |  C3-Pair: not covered
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+   20|      0|bool cased(bool a, bool b) { return a || 1 || b; /* mcdc(0) */ }
+  ------------------
+  |  Branch (20:37): [True: 0, False: 0]
+  |  Branch (20:42): [True: 0, Folded]
+  |  Branch (20:47): [True: 0, False: 0]
+  ------------------
+  |---> MC/DC Decision Region (20:37) to (20:48)
+  |
+  |  Number of Conditions: 3
+  |     Condition C1 --> (20:37)
+  |     Condition C2 --> (20:42)
+  |     Condition C3 --> (20:47)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     None.
+  |
+  |  C1-Pair: not covered
+  |  C2-Pair: constant folded
+  |  C3-Pair: not covered
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+   21|      0|bool casee(bool a, bool b) { return 0 || a || b; /* mcdc(100) */ }
+  ------------------
+  |  Branch (21:37): [Folded, False: 0]
+  |  Branch (21:42): [True: 0, False: 0]
+  |  Branch (21:47): [True: 0, False: 0]
+  ------------------
+  |---> MC/DC Decision Region (21:37) to (21:48)
+  |
+  |  Number of Conditions: 3
+  |     Condition C1 --> (21:37)
+  |     Condition C2 --> (21:42)
+  |     Condition C3 --> (21:47)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     None.
+  |
+  |  C1-Pair: constant folded
+  |  C2-Pair: not covered
+  |  C3-Pair: not covered
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+   22|       |bool casef(bool a, bool b) { return a || 0 || b; /* mcdc(100) */ }
+   23|       |
+   24|      0|bool caseg(bool a, bool b) { return b && a && 0; /* mcdc(0) */ }
+  ------------------
+  |  Branch (24:37): [True: 0, False: 0]
+  |  Branch (24:42): [True: 0, False: 0]
+  |  Branch (24:47): [Folded, False: 0]
+  ------------------
+  |---> MC/DC Decision Region (24:37) to (24:48)
+  |
+  |  Number of Conditions: 3
+  |     Condition C1 --> (24:37)
+  |     Condition C2 --> (24:42)
+  |     Condition C3 --> (24:47)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     None.
+  |
+  |  C1-Pair: not covered
+  |  C2-Pair: not covered
+  |  C3-Pair: constant folded
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+   25|       |bool caseh(bool a, bool b) { return b && 0 && a; /* mcdc(0) */ }
+   26|      0|bool casei(bool a, bool b) { return b && a && 1; /* mcdc(100) */ }
+  ------------------
+  |  Branch (26:37): [True: 0, False: 0]
+  |  Branch (26:42): [True: 0, False: 0]
+  |  Branch (26:47): [True: 0, Folded]
+  ------------------
+  |---> MC/DC Decision Region (26:37) to (26:48)
+  |
+  |  Number of Conditions: 3
+  |     Condition C1 --> (26:37)
+  |     Condition C2 --> (26:42)
+  |     Condition C3 --> (26:47)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     None.
+  |
+  |  C1-Pair: not covered
+  |  C2-Pair: not covered
+  |  C3-Pair: constant folded
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+   27|      0|bool casej(bool a, bool b) { return b && 1 && a; /* mcdc(100) */ }
+  ------------------
+  |  Branch (27:37): [True: 0, False: 0]
+  |  Branch (27:42): [True: 0, Folded]
+  |  Branch (27:47): [True: 0, False: 0]
+  ------------------
+  |---> MC/DC Decision Region (27:37) to (27:48)
+  |
+  |  Number of Conditions: 3
+  |     Condition C1 --> (27:37)
+  |     Condition C2 --> (27:42)
+  |     Condition C3 --> (27:47)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     None.
+  |
+  |  C1-Pair: not covered
+  |  C2-Pair: constant folded
+  |  C3-Pair: not covered
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+   28|      0|bool casek(bool a, bool b) { return b || a || 1; /* mcdc(0) */ }
+  ------------------
+  |  Branch (28:37): [True: 0, False: 0]
+  |  Branch (28:42): [True: 0, False: 0]
+  |  Branch (28:47): [True: 0, Folded]
+  ------------------
+  |---> MC/DC Decision Region (28:37) to (28:48)
+  |
+  |  Number of Conditions: 3
+  |     Condition C1 --> (28:37)
+  |     Condition C2 --> (28:42)
+  |     Condition C3 --> (28:47)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     None.
+  |
+  |  C1-Pair: not covered
+  |  C2-Pair: not covered
+  |  C3-Pair: constant folded
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+   29|      0|bool casel(bool a, bool b) { return b || 1 || a; /* mcdc(0) */ }
+  ------------------
+  |  Branch (29:37): [True: 0, False: 0]
+  |  Branch (29:42): [True: 0, Folded]
+  |  Branch (29:47): [True: 0, False: 0]
+  ------------------
+  |---> MC/DC Decision Region (29:37) to (29:48)
+  |
+  |  Number of Conditions: 3
+  |     Condition C1 --> (29:37)
+  |     Condition C2 --> (29:42)
+  |     Condition C3 --> (29:47)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     None.
+  |
+  |  C1-Pair: not covered
+  |  C2-Pair: constant folded
+  |  C3-Pair: not covered
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+   30|      0|bool casem(bool a, bool b) { return b || a || 0; /* mcdc(100) */ }
+  ------------------
+  |  Branch (30:37): [True: 0, False: 0]
+  |  Branch (30:42): [True: 0, False: 0]
+  |  Branch (30:47): [Folded, False: 0]
+  ------------------
+  |---> MC/DC Decision Region (30:37) to (30:48)
+  |
+  |  Number of Conditions: 3
+  |     Condition C1 --> (30:37)
+  |     Condition C2 --> (30:42)
+  |     Condition C3 --> (30:47)
+  |
+  |  Executed MC/DC Test Vectors:
+  |
+  |     None.
+  |
+  |  C1-Pair: not covered
+  |  C2-Pair: not covered
+  |  C3-Pair: constant folded
+  |  MC/DC Coverage for Decision: 0.00%
+  |
+  ------------------
+   31|       |bool casen(bool a, bool b) { return b || 0 || a; /* mcdc(100) */ }
+   32|       |
+   33|      0|int main(int argc, char *argv[]) {
+   34|      0|  bool a = atoi(argv[1]);
+   35|      0|  bool b = atoi(argv[2]);
+   36|      0|  volatile bool c;
+   37|       |
+   38|      0|  c = case0(a);
+   39|      0|  c = case1(a);
+   40|      0|  c = case2(a);
+   41|      0|  c = case3(a);
+   42|      0|  c = case4(a);
+   43|      0|  c = case5(a);
+   44|      0|  c = case6(a);
+   45|      0|  c = case7(a);
+   46|       |
+   47|      0|  c = case8(a, b);
+   48|      0|  c = case9(a, b);
+   49|      0|  c = casea(a, b);
+   50|      0|  c = caseb(a, b);
+   51|      0|  c = casec(a, b);
+   52|      0|  c = cased(a, b);
+   53|      0|  c = casee(a, b);
+   54|      0|  c = casef(a, b);
+   55|       |
+   56|      0|  c = caseg(a, b);
+   57|      0|  c = caseh(a, b);
+   58|      0|  c = casei(a, b);
+   59|      0|  c = casej(a, b);
+   60|      0|  c = casek(a, b);
+   61|      0|  c = casel(a, b);
+   62|      0|  c = casem(a, b);
+   63|      0|  c = casen(a, b);
+   64|      0|  return 0;
+   65|      0|}
+
